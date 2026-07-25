@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dresrhfco7l02"]
 
-[ext_resource type="Script" uid="uid://beexkiidacmi5" path="res://controller.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://beexkiidacmi5" path="res://scripts/controller.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://fxdw0q204pqr" path="res://scripts/hitbox.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bfvwh6ngjvpgd" path="res://scripts/hurtbox.gd" id="3_h2yge"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4v7s"]
 
@@ -13,6 +15,12 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yf5fn"]
 
 [node name="main" type="Node3D" unique_id=1636213061]
 
@@ -44,8 +52,27 @@ transform = Transform3D(0.8, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5, 0.5)
 mesh = SubResource("BoxMesh_yf5fn")
 skeleton = NodePath("../..")
 
+[node name="WeaponHitbox" type="Area3D" parent="PLAYER/Pivot" unique_id=1241605525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+monitoring = false
+script = ExtResource("2_0xm2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PLAYER/Pivot/WeaponHitbox" unique_id=1985829515]
+shape = SubResource("BoxShape3D_yf5fn")
+
 [node name="cameraRIg" type="Camera3D" parent="." unique_id=1616661912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 10)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=257091366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2903304, 0)
+
+[node name="TESTDUMMY" type="Area3D" parent="." unique_id=797534301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
+script = ExtResource("3_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TESTDUMMY" unique_id=1420566617]
+shape = SubResource("CapsuleShape3D_yf5fn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TESTDUMMY/CollisionShape3D" unique_id=517583982]
+mesh = SubResource("CapsuleMesh_yf5fn")
+skeleton = NodePath("../..")
