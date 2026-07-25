@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dresrhfco7l02"]
+
+[ext_resource type="Script" uid="uid://beexkiidacmi5" path="res://controller.gd" id="1_ig7tw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4v7s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+
+[node name="main" type="Node3D" unique_id=1636213061]
+
+[node name="floor" type="StaticBody3D" parent="." unique_id=452292573]
+physics_material_override = SubResource("PhysicsMaterial_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor" unique_id=2118084692]
+transform = Transform3D(30, 0, 0, 0, 0.2, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor" unique_id=8311546]
+transform = Transform3D(30, 0, 0, 0, 0.2, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="PLAYER" type="CharacterBody3D" parent="." unique_id=886785747]
+script = ExtResource("1_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PLAYER" unique_id=1121914796]
+shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Pivot" type="Node3D" parent="PLAYER" unique_id=1977521732]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PLAYER/Pivot" unique_id=1429657063]
+mesh = SubResource("CapsuleMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PLAYER/Pivot/MeshInstance3D" unique_id=476019559]
+transform = Transform3D(0.8, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5, 0.5)
+mesh = SubResource("BoxMesh_yf5fn")
+skeleton = NodePath("../..")
+
+[node name="cameraRIg" type="Camera3D" parent="." unique_id=1616661912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 10)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=257091366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2903304, 0)
