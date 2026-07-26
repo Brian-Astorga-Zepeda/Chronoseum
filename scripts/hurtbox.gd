@@ -1,4 +1,5 @@
 extends Area3D
 
 func receive_hit(damage: float) -> void:
-	print("Hurtbox took damage: ", damage)
+	var combat = get_parent().get_node("CombatComponent")
+	combat.take_damage(damage)

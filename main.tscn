@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://beexkiidacmi5" path="res://scripts/controller.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://fxdw0q204pqr" path="res://scripts/hitbox.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://c7xvu2vx4o1rq" path="res://scripts/combatcomponent.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://bfvwh6ngjvpgd" path="res://scripts/hurtbox.gd" id="3_h2yge"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4v7s"]
@@ -18,9 +19,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_57qmd"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_yf5fn"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_57qmd"]
 
 [node name="main" type="Node3D" unique_id=1636213061]
 
@@ -60,6 +61,9 @@ script = ExtResource("2_0xm2m")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PLAYER/Pivot/WeaponHitbox" unique_id=1985829515]
 shape = SubResource("BoxShape3D_yf5fn")
 
+[node name="CombatComponent" type="Node" parent="PLAYER" unique_id=1515043041]
+script = ExtResource("3_1bvp3")
+
 [node name="cameraRIg" type="Camera3D" parent="." unique_id=1616661912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 10)
 
@@ -68,11 +72,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2903304, 0)
 
 [node name="TESTDUMMY" type="Area3D" parent="." unique_id=797534301]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
+
+[node name="Area3D" type="Area3D" parent="TESTDUMMY" unique_id=574519750]
 script = ExtResource("3_h2yge")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TESTDUMMY" unique_id=1420566617]
-shape = SubResource("CapsuleShape3D_yf5fn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TESTDUMMY/Area3D" unique_id=1355563290]
+shape = SubResource("CapsuleShape3D_57qmd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TESTDUMMY/CollisionShape3D" unique_id=517583982]
-mesh = SubResource("CapsuleMesh_yf5fn")
-skeleton = NodePath("../..")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TESTDUMMY/Area3D/CollisionShape3D" unique_id=545600421]
+mesh = SubResource("CapsuleMesh_57qmd")
+
+[node name="CombatComponent" type="Node" parent="TESTDUMMY" unique_id=638870156]
+script = ExtResource("3_1bvp3")
