@@ -18,6 +18,10 @@ config/name="CHronoseum"
 run/main_scene="uid://dresrhfco7l02"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
+[global_group]
+
+Player=""
+
 [input]
 
 move_forward={

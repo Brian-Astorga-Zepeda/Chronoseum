@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bwtjgvnmpgpy1"]
+
+[ext_resource type="Script" uid="uid://dokvdl3mktk1j" path="res://scripts/enemycontroller.gd" id="1_3clko"]
+[ext_resource type="Script" uid="uid://bfvwh6ngjvpgd" path="res://scripts/hurtbox.gd" id="1_cxp23"]
+[ext_resource type="Script" uid="uid://c7xvu2vx4o1rq" path="res://scripts/combatcomponent.gd" id="2_3clko"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_57qmd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_57qmd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[node name="ENEMYTEMPLATE" type="CharacterBody3D" unique_id=670355334]
+script = ExtResource("1_3clko")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1864582686]
+script = ExtResource("1_cxp23")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1065507603]
+shape = SubResource("CapsuleShape3D_57qmd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D" unique_id=1513990868]
+mesh = SubResource("CapsuleMesh_57qmd")
+
+[node name="CombatComponent" type="Node" parent="." unique_id=1507218842]
+script = ExtResource("2_3clko")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1050790292]
+shape = SubResource("CapsuleShape3D_g4v7s")
