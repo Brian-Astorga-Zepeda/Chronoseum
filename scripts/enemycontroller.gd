@@ -4,12 +4,21 @@ extends CharacterBody3D
 @export var gravity: float = 20.0
 @export var attack_range: float = 1.8
 var player: Node3D = null
-enum State { CHASE, HITSTUN }
+enum State { CHASE, ATTACK, HITSTUN }
 
+enum AttackPhase {WINDUP, ACTIVE, RECOVER} #DERIVA DEL ESTADO DE ATAQUE, DEBERIA HACER MÁS FACIL INTEGRAR ANIMACIONES
+
+var attack_phase: AttackPhase
+var phase_time: float = 0.0
 var state: State = State.CHASE
 var state_time: float = 0.0
 @export var hitstun_duration: float = 5.0
 @onready var combat: Node = $CombatComponent
+@onready var weapon_hitbox: Area3D = $Pivot/WeaponHitbox
+@export var windup_duration: float = 0.6
+@export var active_duration: float = 0.2
+@export var recover_duration: float = 0.5
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -61,9 +70,34 @@ func _chase_state():
 			velocity.x = 0
 			velocity.z = 0
 func _hitstun_state() -> void:
-	print("IM ON HITSTUN!!")
 	velocity.x = 0
 	velocity.z = 0
 	if state_time > hitstun_duration:
-		print("IM NOT ANYMORE!!")
 		state = State.CHASE
+
+func enter_atack() -> void:
+	#entra en attackphase e inicia el windup
+	state = State.ATTACK
+	state_time = 0.0
+	attack_phase = AttackPhase.WINDUP
+	phase_time = 0.0
+	#insert windup anim LOL
+
+func state_atack(delta: float) -> void:
+	#maneja las fases
+	phase_time += delta 
+	match attack_phase:
+		AttackPhase.WINDUP:
+			#velocity = 0 y el enemigo aun puede mirar al jugador
+			velocity.x = 0
+			velocity.z = 0
+			if phase_time >= windup_duration:
+				AttackPhase.ACTIVE
+		AttackPhase.ACTIVE:
+			weapon_hitbox.monitoring = true
+			if phase_time >= windup_duration + active_duration:
+				AttackPhase.RECOVER
+		AttackPhase.RECOVER:
+			if phase_time <= windup_duration + active_duration + recover_duration:
+				AttackPhase.WINDUP
+				State.CHASE

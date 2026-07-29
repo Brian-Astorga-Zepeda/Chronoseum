@@ -9,12 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://diro5yjtwswi" path="res://sprite/gameplaceholder/RUN_0000.png" id="7_b26j0"]
 [ext_resource type="Texture2D" uid="uid://o2ds2xoedx8m" path="res://sprite/gameplaceholder/RUN_0001.png" id="8_n7ghd"]
 [ext_resource type="Texture2D" uid="uid://cqpr5ekgmxmnc" path="res://sprite/gameplaceholder/RUN_0002.png" id="9_nvl01"]
+[ext_resource type="Script" uid="uid://bfvwh6ngjvpgd" path="res://scripts/hurtbox.gd" id="10_n7ghd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 
@@ -52,6 +53,12 @@ animations = [{
 [node name="PLAYER" type="CharacterBody3D" unique_id=724059664 groups=["Player"]]
 script = ExtResource("1_i3pqv")
 
+[node name="hurtbox" type="Area3D" parent="." unique_id=1742899152]
+script = ExtResource("10_n7ghd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hurtbox" unique_id=315432907]
+shape = SubResource("CapsuleShape3D_yf5fn")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=698632440]
 visible = false
 shape = SubResource("CapsuleShape3D_g4v7s")
@@ -61,11 +68,6 @@ visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=215554375]
 mesh = SubResource("CapsuleMesh_g4v7s")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pivot/MeshInstance3D" unique_id=1658622254]
-transform = Transform3D(0.8, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5, 0.5)
-mesh = SubResource("BoxMesh_yf5fn")
 skeleton = NodePath("../..")
 
 [node name="WeaponHitbox" type="Area3D" parent="Pivot" unique_id=382025292]

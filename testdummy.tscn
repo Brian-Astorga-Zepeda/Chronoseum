@@ -3,12 +3,17 @@
 [ext_resource type="Script" uid="uid://dokvdl3mktk1j" path="res://scripts/enemycontroller.gd" id="1_3clko"]
 [ext_resource type="Script" uid="uid://bfvwh6ngjvpgd" path="res://scripts/hurtbox.gd" id="1_cxp23"]
 [ext_resource type="Script" uid="uid://c7xvu2vx4o1rq" path="res://scripts/combatcomponent.gd" id="2_3clko"]
+[ext_resource type="Script" uid="uid://fxdw0q204pqr" path="res://scripts/hitbox.gd" id="4_wph11"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_57qmd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_57qmd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 
 [node name="ENEMYTEMPLATE" type="CharacterBody3D" unique_id=670355334]
 script = ExtResource("1_3clko")
@@ -27,3 +32,15 @@ script = ExtResource("2_3clko")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1050790292]
 shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1108206809]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=2056618923]
+mesh = SubResource("CapsuleMesh_g4v7s")
+
+[node name="WeaponHitbox" type="Area3D" parent="Pivot" unique_id=1884818550]
+monitorable = false
+script = ExtResource("4_wph11")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/WeaponHitbox" unique_id=1848425798]
+shape = SubResource("BoxShape3D_g4v7s")

@@ -101,10 +101,8 @@ func _on_was_hit() -> void:
 		
 
 func _hitstun_state() -> void:
-	print("IM ON HITSTUN!!")
 	velocity.x = 0
 	velocity.z = 0
 	if state_time > hitstun_duration:
-		print("IM NOT ANYMORE!!")
 		state_time = 0
 		state = State.IDLE
